@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/394263772/costache.kotlin-react-plugin.iml" filepath="$PROJECT_DIR$/.idea/modules/394263772/costache.kotlin-react-plugin.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/394263772/costache.kotlin-react-plugin.main.iml" filepath="$PROJECT_DIR$/.idea/modules/394263772/costache.kotlin-react-plugin.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/394263772/costache.kotlin-react-plugin.test.iml" filepath="$PROJECT_DIR$/.idea/modules/394263772/costache.kotlin-react-plugin.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/kotlin-js-test.iml" filepath="$PROJECT_DIR$/.idea/modules/kotlin-js-test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/kotlin-js-test.main.iml" filepath="$PROJECT_DIR$/.idea/modules/kotlin-js-test.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/kotlin-js-test.test.iml" filepath="$PROJECT_DIR$/.idea/modules/kotlin-js-test.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/kotlin-react-plugin.iml" filepath="$PROJECT_DIR$/.idea/modules/kotlin-react-plugin.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/2049460317/kotlin-react-plugin.main.iml" filepath="$PROJECT_DIR$/.idea/modules/2049460317/kotlin-react-plugin.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/2049460317/kotlin-react-plugin.test.iml" filepath="$PROJECT_DIR$/.idea/modules/2049460317/kotlin-react-plugin.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/readme-example.iml" filepath="$PROJECT_DIR$/.idea/modules/readme-example.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/readme-example.main.iml" filepath="$PROJECT_DIR$/.idea/modules/readme-example.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/readme-example.test.iml" filepath="$PROJECT_DIR$/.idea/modules/readme-example.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/sample.kotlin-js-test.iml" filepath="$PROJECT_DIR$/.idea/modules/sample.kotlin-js-test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/sample.kotlin-js-test.main.iml" filepath="$PROJECT_DIR$/.idea/modules/sample.kotlin-js-test.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/sample.kotlin-js-test.test.iml" filepath="$PROJECT_DIR$/.idea/modules/sample.kotlin-js-test.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/vis-timeline.iml" filepath="$PROJECT_DIR$/vis-timeline.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/vis-timeline.main.iml" filepath="$PROJECT_DIR$/.idea/modules/vis-timeline.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/vis-timeline.test.iml" filepath="$PROJECT_DIR$/.idea/modules/vis-timeline.test.iml" />
+    </modules>
+  </component>
+</project>

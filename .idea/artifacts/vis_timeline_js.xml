@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="vis-timeline-js">
+    <output-path>$PROJECT_DIR$/build/libs</output-path>
+    <root id="archive" name="vis-timeline-js.jar">
+      <element id="module-output" name="vis-timeline.jsMain" />
+    </root>
+  </artifact>
+</component>

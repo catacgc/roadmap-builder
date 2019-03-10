@@ -1,0 +1,155 @@
+@import "~vis/dist/vis.min.css";
+
+.vis-item .vis-item-overflow {
+    overflow: visible;
+}
+
+.vis-item.vis-box {
+    background-color: transparent;
+    border-width: 1.5pt;
+    border-style: none;
+    border-bottom-style: solid;
+    font-style: italic;
+    font-size: 13px;
+}
+
+.vis-item.vis-dot {
+    border-color: inherit !important;
+}
+
+.vis-item.vis-range {
+    border-color: #d8d7da;
+}
+
+.vis-item.vis-range .team-labels {
+    font-style: italic;
+    font-size: 13px;
+}
+
+.vis-item.unplanned {
+    /*background-color: transparent!important;*/
+    border-style: dashed!important;
+    z-index: 0;
+    opacity: 0.5 !important;
+}
+
+pre {
+    padding: 0;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+    position: relative;
+    cursor: pointer;
+    font-style: italic;
+}
+a.grow::after {
+    content: ' ';
+    position: absolute;
+    top: 100%;
+    left: 25%;
+    width: 50%;
+    height: 1px;
+    border-bottom: 1px solid tomato;
+    transition: 0.4s;
+}
+a.grow:hover::after {
+    width: 100%;
+    left: 0;
+}
+a.highlight::after {
+    content: ' ';
+    position: absolute;
+    z-index: -1;
+    top: 100%;
+    left: -2px;
+    padding: 0 2px;
+    width: calc(100% + 2px);
+    height: 1px;
+    border-bottom: 1px solid tomato;
+    transition: 0.4s;
+}
+a.highlight:hover::after {
+    top: 0;
+    height: 1.5em;
+    background-color: rgba(255, 99, 71, 0.5);
+    border-color: transparent;
+}
+a.swipe::before {
+    content: ' ';
+    position: absolute;
+    z-index: -1;
+    top: 100%;
+    left: -2px;
+    padding: 0 2px;
+    width: calc(100% + 2px);
+    height: 1px;
+    border-bottom: 1px solid tomato;
+    transition: 0.4s;
+}
+a.swipe::after {
+    content: ' ';
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    left: -2px;
+    padding: 0 2px;
+    width: 1px;
+    height: 1.5em;
+    transition: 0.4s;
+}
+a.swipe:hover::after {
+    width: 100%;
+    background-color: rgba(255, 99, 71, 0.75);
+}
+a.magic-btn::before {
+    content: ' ';
+    position: absolute;
+    z-index: -1;
+    bottom: 0;
+    left: -2px;
+    padding: 0 2px;
+    width: calc(100% + 2px);
+    height: 1px;
+    border-bottom: 1px solid tomato;
+    transition: 0.4s;
+}
+a.magic-btn::after {
+    content: ' ';
+    position: absolute;
+    z-index: -1;
+    bottom: 0;
+    left: calc(50% - 4px);
+    padding: 0 2px;
+    width: 0;
+    height: 0;
+    border: 1px solid transparent;
+    transition: 0.4s;
+}
+a.magic-btn:hover::before {
+    border-color: transparent;
+}
+a.magic-btn:hover::after {
+    width: 100%;
+    height: 1.25em;
+    left: -1em;
+    bottom: -0.35em;
+    padding: 0.5em 1em;
+    border-color: tomato;
+    background-color: tomato;
+    border-radius: 2.5em;
+}
+a.magic-btn {
+    display: inline-block;
+    transition: 0.3s;
+    transition-delay: 0s;
+    -webkit-transform: scale(1);
+    transform: scale(1);
+}
+a.magic-btn:hover {
+    color: #fff;
+    -webkit-transform: scale(1.4);
+    transform: scale(1.4);
+    transition-delay: 0.11s;
+}
