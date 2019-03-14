@@ -2,6 +2,8 @@
 
 The project helps you create and embed beautiful roadmaps with a simple, readable syntax.
 
+[![Build Status](https://travis-ci.org/catacgc/roadmap-builder.svg?branch=master)](https://travis-ci.org/catacgc/roadmap-builder)
+
 # Where to use it
 
 Any place that accepts some scripts and some html tags
