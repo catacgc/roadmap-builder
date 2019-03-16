@@ -39,6 +39,7 @@
 #
 *.js.map
 .vscode
+docs
 
 # CMake
 cmake-build-*/

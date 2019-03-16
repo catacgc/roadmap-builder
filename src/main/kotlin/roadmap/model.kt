@@ -2,7 +2,7 @@ package roadmap
 
 import roadmap.types.format
 import kotlin.js.Date
-import kotlin.math.ceil
+import kotlin.math.floor
 
 data class Group(val id: Int, val content: String, val order: Int = 10) {
     val subgroupStack = true
@@ -46,19 +46,33 @@ data class Item(val id: Int,
         val startstr = format(start, "MMM Do")
         val endstr = end?.let { format(end, "MMM Do") }
 
-        val duration = if (isMilestone) startstr else "${countSprints(start)} sprints ($startstr - $endstr)"
+        val duration = if (isMilestone) startstr else "${countSprints(start)} ($startstr - $endstr)"
 
         val text = listOf(duration) + description.split("\n")
 
         return """<div class="tooltip">${text.joinToString("") { "<p>$it</p>" }}</div>"""
     }
 
-    private fun countSprints(starting: Date): Int {
+    private fun countSprints(starting: Date): String {
         if (end == null) {
-            return 0
+            return "milestone"
         }
 
-        return ceil((end.getTime() - starting.getTime()) / 1000 / 3600 / 24 / 14).toInt()
+        fun p(item: Int, unit: String): String? {
+            if (item < 1) return null
+            return "$item $unit" + if(item > 1) "s" else ""
+        }
+
+        val sprints = floor((end.getTime() - starting.getTime()) / 1000 / 3600 / 24 / 14).toInt()
+        val weeks = floor((end.getTime() - starting.getTime()) / 1000 / 3600 / 24 / 7 - sprints * 2).toInt()
+        val days = floor((end.getTime() - starting.getTime()) / 1000 / 3600 / 24 - sprints * 14 - weeks * 7).toInt()
+
+        val date = mutableListOf<String?>()
+        date.add(p(sprints, "sprint"))
+        date.add(p(weeks, "week"))
+        date.add(p(days, "day"))
+
+        return date.filterNotNull().joinToString(", ")
     }
 }
 
