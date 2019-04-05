@@ -1,19 +1,45 @@
 package roadmap
 
-import roadmap.types.Duration
-import roadmap.types.parse
+import typemaps.duration.Duration
+import typemaps.datefns.parse
+import typemaps.peg.DateWithDelta
 import kotlin.js.Date
+import typemaps.peg.parse as pegParse
 
-class ParseResult<T>(val value: T? = null, val error: String? = null)
+class ParseError(errorMessage: String, line: Int, roadmap: String) {
+    private val split = roadmap.split("\n")
+
+    val message = {
+        val context = 10
+        val contextMin = if (line - context >= 1) line - context else 1
+        val contextMax = if (line + context <= split.size) line + context else split.size
+
+        val lines = (contextMin until contextMax + 1).map {
+            "$it: ${split[it - 1]}"
+        }.joinToString("\n")
+
+        """
+Error: $errorMessage
+Line: $line
+
+Context
+-----
+$lines
+        """
+    }()
+
+}
+
+class ParseResult<T>(val value: T? = null, val error: ParseError? = null)
 
 data class ParsedItem(val group: String?,
-                 val title: String,
-                 val start: Date,
-                 val end: Date?,
-                 val teams: List<String>,
-                 val description: String = "",
-                 val labels: List<String> = listOf(),
-                 val links: List<Pair<String, String>> = listOf()) {
+                      val title: String,
+                      val start: Date,
+                      val end: Date?,
+                      val teams: List<String>,
+                      val description: String = "",
+                      val labels: List<String> = listOf(),
+                      val links: List<Pair<String, String>> = listOf()) {
 
     fun htmlLinks() = links.joinToString(", ") { """<a class="grow" target="_blank" href="${it.second}"/>${it.first}</a>""" }
 }
@@ -33,87 +59,51 @@ class Blocks(val items: List<ParsedItem>) {
             .toMap()
 }
 
-private fun parseItem(item: String): ParseResult<ParsedItem> {
-    val lines = item.trim().split("\n")
+private fun parseStart(date: DateWithDelta): Date {
+    val start = parse(date.date!!)
+    val delta = date.delta
 
-    if (lines.size < 2) {
-        return ParseResult(error = "Cannot parse: $item")
-    }
+    delta ?: return start
 
-    val groupAndTitle = lines[0].split(",").map { it.trim() }
-    val title = if (groupAndTitle.size == 2) groupAndTitle[1] else groupAndTitle[0]
-    val group = if (groupAndTitle.size == 2) groupAndTitle[0] else null
+    console.log(start, Duration.parse(delta), Duration.parse(delta).after(start))
 
-    val (start, end) = parseDate(lines[1])
-
-    val teams = lines[2].split(",").map { it.trim() }
-
-    var parsed = ParsedItem(group, title, start, end, teams)
-
-    lines.drop(3).forEach {
-        parsed = parseMeta(it, parsed)
-    }
-
-    return ParseResult(parsed)
+    return Duration.parse(delta).after(start)
 }
 
-private fun parseMeta(meta: String, parsed: ParsedItem): ParsedItem {
-    val metaTrimmed = meta.trim()
-    val prefix = metaTrimmed[0]
-    val value = metaTrimmed.drop(1).trim()
+private fun parseEnd(start: DateWithDelta, end: DateWithDelta?): Date? {
+    end ?: return null
 
-    return when (prefix) {
-        '@' -> parsed.copy(labels = value.split(",").map { it.trim() })
-        '>' -> parsed.copy(description = parsed.description + value + "\n")
-        '^' -> parsed.copy(links = parsed.links + (value.split("|")[0] to value.split("|")[1]))
-        else -> parsed
-    }
-}
+    val start = parseStart(start)
 
-private fun parseDate(line: String): Pair<Date, Date?> {
-    val dates = line.split(",").map { it.trim() }
+    val endDate = if (end.date != null) parse(end.date!!) else start
 
-    val start = if (dates[0].contains("+")) {
-        val (first, duration) = dates[0].split("+")
-        parseEndDate(parse(first), duration)!!
-    } else parse(dates[0])
-
-    val end = if (dates.size > 1) {
-        parseEndDate(start, dates[1])
-    } else null
-
-    return Pair(start, end)
-}
-
-private fun parseEndDate(start: Date, end: String): Date? {
-    val endDate = try { parse(end) } catch (ex: Throwable) { null }
-    val duration = try { Duration.parse(end).after(start) } catch (ex: Throwable) { null }
-
-    if(endDate?.getSeconds()?.toDouble()?.isFinite() == true) {
+    return if (end.delta != null) {
+        Duration.parse(end.delta!!).after(start)
+    } else {
         return endDate
     }
-
-    return duration
 }
 
 fun parseRoadmap(roadmap: String): ParseResult<Blocks> {
-    val items = roadmap.trim().split("\n\n")
-
-    val parsed: List<ParseResult<ParsedItem>> = items.map {
-        try {
-            parseItem(it)
-        } catch (ex: Throwable) {
-            ParseResult<ParsedItem>(error = ex.message + " " +  it)
+    try {
+        val items = pegParse(roadmap)
+        val parsedItems = items.map {
+            ParsedItem(
+                    group = it.title.project,
+                    title = it.title.task,
+                    start = parseStart(it.start),
+                    end = parseEnd(it.start, it.end),
+                    links = it.meta.links.map { l -> l.name to l.url },
+                    description = it.meta.desc,
+                    labels = it.meta.labels.toList(),
+                    teams = it.teams.toList()
+            )
         }
+
+        return ParseResult(Blocks(parsedItems))
+    } catch (ex: dynamic) {
+        console.log(ex)
+        val error = ParseError(ex.message, ex.location.start.line as Int, roadmap)
+        return ParseResult(error = error)
     }
-
-    val errors = parsed.mapNotNull { it.error }
-    val noErrors = parsed.mapNotNull { it.value }
-
-    val errorMessage = when (errors.size) {
-        0 -> null
-        else -> errors.joinToString("\n\n")
-    }
-
-    return ParseResult(Blocks(noErrors), errorMessage)
 }

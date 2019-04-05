@@ -32,7 +32,7 @@ class Editor(props: EditorProps) : RComponent<EditorProps, EditorState>(props) {
     override fun RBuilder.render() {
         div("edit-button") {
             button {
-                +"Edit"
+                + if (state.isActive) "Close editor" else "Edit"
                 attrs {
                     onClickFunction = { ev ->
                         state.isActive = !state.isActive
@@ -43,6 +43,15 @@ class Editor(props: EditorProps) : RComponent<EditorProps, EditorState>(props) {
         }
 
         if (state.isActive) {
+            button {
+                +"Refresh"
+                attrs {
+                    onClickFunction = { ev ->
+                        props.onChange(state.edited)
+                    }
+                }
+            }
+
             p {
                 +"There's no save button in here; embed this back in the page;"
             }
@@ -51,15 +60,6 @@ class Editor(props: EditorProps) : RComponent<EditorProps, EditorState>(props) {
                 +state.edited
                 attrs {
                     onChangeFunction = ::captureEdited
-                }
-            }
-
-            button {
-                +"Refresh"
-                attrs {
-                    onClickFunction = { ev ->
-                        props.onChange(state.edited)
-                    }
                 }
             }
         }

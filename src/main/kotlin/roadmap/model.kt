@@ -1,6 +1,6 @@
 package roadmap
 
-import roadmap.types.format
+import typemaps.datefns.format
 import kotlin.js.Date
 import kotlin.math.floor
 

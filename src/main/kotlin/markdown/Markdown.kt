@@ -1,6 +1,6 @@
 package markdown
 
-import markdown.showdown.Converter
+import typemaps.showdown.Converter
 import org.w3c.dom.Element
 import react.*
 import react.dom.div

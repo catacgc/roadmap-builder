@@ -1,6 +1,6 @@
 language: java
 script:
-  ./gradlew clean docs
+  yarn install --force; ./gradlew clean docs
 before_install:
   - nvm install node
 before_cache:

@@ -3,6 +3,18 @@ plugins {
 }
 
 tasks {
+    val pegParser by registering(Exec::class) {
+        val inputFile = "src/main/resources/parser.pegjs"
+        val outputFile = "build/resources/main/parser.js"
+
+        inputs.file(inputFile)
+        outputs.file(outputFile)
+
+        commandLine = "node_modules/.bin/pegjs -o $outputFile $inputFile".split(" ")
+    }
+
+    named("build") { dependsOn(pegParser) }
+
     val cleanup by registering(Delete::class) {
         delete("docs")
         delete("github-pages/*")

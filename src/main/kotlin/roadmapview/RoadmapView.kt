@@ -5,9 +5,9 @@ import react.*
 import react.dom.div
 import react.dom.h3
 import roadmap.*
-import roadmap.types.DataSet
-import roadmap.types.Timeline
-import roadmap.types.format
+import typemaps.vis.DataSet
+import typemaps.vis.Timeline
+import typemaps.datefns.format
 import kotlin.js.Date
 
 interface RoadmapViewProps : RProps {

@@ -6,6 +6,7 @@ import react.RComponent
 import react.RProps
 import react.RState
 import react.dom.div
+import react.dom.pre
 import roadmapview.timeline
 import roadmapview.views.ProjectView
 import roadmapview.views.TeamAndMilestonesView
@@ -30,10 +31,14 @@ class Roadmap(props: RoadmapProps) : RComponent<RoadmapProps, RoadmapState>(prop
     }
 
     override fun RBuilder.render() {
-        if (state.blocks.error != null) {
-            val text = state.blocks.error!!
+        div("roadmap-controls") {
+            editor(props.roadmapString, ::onChange)
+        }
 
-            div("error") { +text }
+        if (state.blocks.error != null) {
+            val err = state.blocks.error!!
+
+            pre { +err.message }
             return
         }
 
@@ -45,10 +50,6 @@ class Roadmap(props: RoadmapProps) : RComponent<RoadmapProps, RoadmapState>(prop
                 "team" to TeamView.build(parsed, options),
                 "milestones" to TeamAndMilestonesView.build(parsed, options)
         )
-
-        div("roadmap-controls") {
-            editor(props.roadmapString, ::onChange)
-        }
 
         // render all views in the data-template attribute
         props.views.forEach {

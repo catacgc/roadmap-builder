@@ -1,5 +1,5 @@
 @file:JsModule("vis")
-package roadmap.types
+package typemaps.vis
 
 import org.w3c.dom.Element
 import roadmap.Group
