@@ -26,7 +26,7 @@ class Editor(props: EditorProps) : RComponent<EditorProps, EditorState>(props) {
 
     override fun EditorState.init(props: EditorProps) {
         isActive = false
-        edited = props.editedContent
+        edited = props.editedContent.trimIndent()
     }
 
     override fun RBuilder.render() {

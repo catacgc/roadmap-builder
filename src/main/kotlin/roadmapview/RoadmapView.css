@@ -33,18 +33,19 @@
     opacity: 0.5 !important;
 }
 
-pre {
+.vis-timeline pre {
     padding: 0;
 }
 
-a {
+.vis-timeline a {
     text-decoration: none;
     color: inherit;
     position: relative;
     cursor: pointer;
     font-style: italic;
 }
-a.grow::after {
+
+.vis-timeline a.grow::after {
     content: ' ';
     position: absolute;
     top: 100%;
@@ -54,11 +55,13 @@ a.grow::after {
     border-bottom: 1px solid tomato;
     transition: 0.4s;
 }
-a.grow:hover::after {
+
+.vis-timeline a.grow:hover::after {
     width: 100%;
     left: 0;
 }
-a.highlight::after {
+
+.vis-timeline a.highlight::after {
     content: ' ';
     position: absolute;
     z-index: -1;
@@ -70,13 +73,14 @@ a.highlight::after {
     border-bottom: 1px solid tomato;
     transition: 0.4s;
 }
-a.highlight:hover::after {
+
+.vis-timeline a.highlight:hover::after {
     top: 0;
     height: 1.5em;
     background-color: rgba(255, 99, 71, 0.5);
     border-color: transparent;
 }
-a.swipe::before {
+.vis-timeline a.swipe::before {
     content: ' ';
     position: absolute;
     z-index: -1;
@@ -88,7 +92,8 @@ a.swipe::before {
     border-bottom: 1px solid tomato;
     transition: 0.4s;
 }
-a.swipe::after {
+
+.vis-timeline a.swipe::after {
     content: ' ';
     position: absolute;
     z-index: -1;
@@ -99,11 +104,13 @@ a.swipe::after {
     height: 1.5em;
     transition: 0.4s;
 }
-a.swipe:hover::after {
+
+.vis-timeline a.swipe:hover::after {
     width: 100%;
     background-color: rgba(255, 99, 71, 0.75);
 }
-a.magic-btn::before {
+
+.vis-timeline a.magic-btn::before {
     content: ' ';
     position: absolute;
     z-index: -1;
@@ -115,7 +122,8 @@ a.magic-btn::before {
     border-bottom: 1px solid tomato;
     transition: 0.4s;
 }
-a.magic-btn::after {
+
+.vis-timeline a.magic-btn::after {
     content: ' ';
     position: absolute;
     z-index: -1;
@@ -127,10 +135,12 @@ a.magic-btn::after {
     border: 1px solid transparent;
     transition: 0.4s;
 }
-a.magic-btn:hover::before {
+
+.vis-timeline a.magic-btn:hover::before {
     border-color: transparent;
 }
-a.magic-btn:hover::after {
+
+.vis-timeline a.magic-btn:hover::after {
     width: 100%;
     height: 1.25em;
     left: -1em;
@@ -140,14 +150,16 @@ a.magic-btn:hover::after {
     background-color: tomato;
     border-radius: 2.5em;
 }
-a.magic-btn {
+
+.vis-timeline a.magic-btn {
     display: inline-block;
     transition: 0.3s;
     transition-delay: 0s;
     -webkit-transform: scale(1);
     transform: scale(1);
 }
-a.magic-btn:hover {
+
+.vis-timeline a.magic-btn:hover {
     color: #fff;
     -webkit-transform: scale(1.4);
     transform: scale(1.4);
