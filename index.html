@@ -1,0 +1,211 @@
+<script src="main.bundle.js?v=1555491481682" type="text/javascript"></script>
+
+
+<div class="container">
+
+    <div class="markdown"><textarea readonly>
+
+    # Where to use it
+
+    Any place that accepts some scripts and some html tags
+
+
+    # How to use it
+
+    Embed the following basic structure
+
+    ```
+          <script src="main.bundle.js?v=1555491481682"></script>
+
+          <div class="roadmap">
+
+            Project A, Task 1
+            2019-01-01, 10w
+            Team 1
+
+            Project A, Task 2 - another 10 weeks
+            2019-01-01 + 10w, 10w
+            Team 1, Team 2
+
+          </div>
+
+    ```
+
+    The example above will render the following roadmap:
+    </textarea></div>
+
+    <div class="roadmap" style="width: 800px; font-size: 12px">
+        Project A, Task 1
+        2019-01-01, 10w
+        Team 1
+
+        Project A, Task 2 - another 10 weeks
+        2019-01-01 + 10w, 10w
+        Team 1, Team 2
+
+    </div>
+
+    <div class="markdown"><textarea readonly>
+    ## A task element
+
+    A task element has a very simple format:
+
+    - first line (mandatory): Project and Task Name, comma separated. Example: `Project A, Task 1`
+    - second line (mandatory): A Date Interval. Examples:
+        * `2019-01-01, 2019-01-15` - 15 days task, inclusive
+        * `2019-01-01, 2w` - 2 week task
+        * `2019-01-01 + 2w, 2w` - 2 week task, starting on 14th of Jan
+        * `2019-01-03` - **no end date**, signals a milestone
+
+    - third line (mandatory): Team List, comma separated. Example: `Team A, Team B`
+
+    - following lines can contain markers that allow for extra configuration of the task item
+        * `^`: links, multiple lines. Links show up in the roadmap item body and have the format `link-name | link-url`
+
+        Example:
+
+        ```
+        Project A, Milestone A
+        2019-01-10
+        Team A
+        ^ google | https://google.com
+        ^ bing | https://bing.com
+        ```
+
+
+        * `@`: comma separated labels
+
+        Example:
+
+        ```
+        Project A, Milestone A
+        2019-01-10
+        Team A
+        @ important-milestone, planned
+        ```
+
+        * `>`: description lines, can have multiple on a single block and will show up as a description on the task tooltip
+
+        Example:
+
+        ```
+        Project A, Milestone A
+        2019-01-10
+        Team A
+        > A critical milestone
+        > More important than Milestone B
+        ```
+
+
+    Putting it all together, here is a full task item definition (note the styling for the unplanned label):
+
+
+        <div class="roadmap" data-view="project">
+            Project A, Milestone A
+            2019-01-10 + 9w
+            Team A
+            @ important-milestone, planned
+            ^ google | https://google.com
+            > A critical milestone
+            > More important than Milestone B
+
+            Project A, Task A
+            2019-01-10 + 5w, 5w
+            Team A
+            ^ bing | https://bing.com
+            @unplanned
+
+            Project A, Task B
+            2019-01-10 + 6w, 2w
+            Team A
+
+            Project B, Task A
+            2019-01-20 + 6w, 2w
+            Team A, Team B
+
+            Project B, Task B
+            2019-01-20 + 2w, 3w
+            Team B
+        </div>
+
+    </textarea></div>
+
+    <div class="roadmap" style="width: 800px; font-size: 12px">
+        Project A, Milestone A
+        2019-01-10 + 9w
+        Team A
+        @ important-milestone, planned
+        ^ google | https://google.com
+        > A critical milestone
+        > More important than Milestone B
+
+        Project A, Task A
+        2019-01-10 + 5w, 5w
+        Team A
+        ^ bing | https://bing.com
+        @unplanned
+
+        Project A, Task B
+        2019-01-10 + 6w, 2w
+        Team A
+
+        Project B, Task A
+        2019-01-20 + 6w, 2w
+        Team A, Team B
+
+        Project B, Task B
+        2019-01-20 + 2w, 3w
+        Team B
+    </div>
+
+
+    <div class="markdown"><textarea readonly>
+
+# Using the timeline
+
+Once the timeline is rendered, you can interact with it:
+
+- click on it to activate it
+- ctrl + pinch zoom - zoom the timeline
+- click and drag to move left to right
+- hover over tasks or milestones to visualise the description, detailed time information
+- click on tasks or milestones to set a custom time-bar
+
+You also have a useful edit mode. Click on the "Edit" button above the timeline and it will show
+you the list of items that the timeline was rendered from. Edit stuff and refresh.
+
+Obviously, if you want to save edits, embed back the item in the roadmap div
+
+# Configure the timeline rendering
+
+The roadmap div supports optional data attributes that you can use to configure the rendering. Full example:
+
+
+    <div class="roadmap"
+         data-start="2019-06-01"
+         data-end="2019-12-01"
+         data-view="project,team,milestones">
+
+        My Project, My Task
+        2019-06-20 + 2w, 3w
+        A Team
+
+    </div>
+
+# Development
+
+This project is a playground for Kotlin JS + React .
+All you will need to do is to open it in IDEA and you are good to go.
+
+Run `./gradlew build -t` to start the compile process that continuously compiles kotlin2js.
+
+Run `./gradlew webpackDevServer` to start the webpack server that refreshes the browser and provides error info.
+
+Edit `src/main/resources/index.html` (this doc) to see changes in realtime.
+
+# Building
+
+Run `./gradlew docs` to update the documentation in the `docs` folder. Commit and push
+
+    </textarea></div>
+</div>
